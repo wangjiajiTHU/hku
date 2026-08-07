@@ -44,15 +44,16 @@ Applicants holding a National Scholarship or first-class scholarship, ranking hi
 
 ### Deadlines
 
-Entry is in **2027**. The dates that matter:
+Entry is in **2027**, and the date to work back from is:
 
-| Milestone | Date |
-| --- | --- |
-| Contact us if applying for the Presidential Scholarship | by **10 October 2026** |
-| HKPFS application to the Research Grants Council | by **1 December 2026, 12:00 noon (HKT, GMT+8)** |
-| Full application to HKU | by **1 December 2026** |
+**Contact us by 10 October 2026.**
 
-Getting in touch early matters more than it looks — nomination decisions are made well before the formal deadline.
+That is the one that matters. Nomination for the Presidential Scholarship and HKPFS is decided inside the group well before the university's formal deadline, so an email arriving in November is already too late to be put forward — however strong it is.
+
+The formal university deadlines that follow are:
+
+- **1 December 2026, 12:00 noon (HKT, GMT+8)** — HKPFS application to the Research Grants Council
+- **1 December 2026** — full application to HKU via the Graduate School
 
 ### How to Apply
 
@@ -149,6 +150,6 @@ HKU undergraduates and MSc students interested in final-year projects or researc
 
 拟入学时间：**2027年**
 
-计划申请香港大学校长奖学金的同学，建议在**2026年10月10日**前尽早联系并准备申请材料。HKPFS需于**2026年12月1日中午12时**前向研究资助局提交申请，并于**2026年12月1日**前完成香港大学的完整申请。
+**请在2026年10月10日前与我们联系。** 校长奖学金与HKPFS的提名在课题组内部远早于学校正式截止日期前完成，11月才来信通常已无法参与提名。HKPFS需于**2026年12月1日中午12时**前向研究资助局提交申请，并于**2026年12月1日**前完成香港大学的完整申请。
 
 我们希望寻找对智能计算或实际工程问题具有好奇心，愿意将结构工程、人工智能和机器人技术相结合的优秀同学。无论你擅长结构设计、力学仿真、人工智能还是机器人，只要对上述研究方向感兴趣，都欢迎来信交流。
