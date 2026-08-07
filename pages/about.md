@@ -4,7 +4,7 @@
 
 His research combines computational mechanics with machine learning: physics-informed neural networks and neural operators for solid and structural mechanics, three-dimensional constitutive models for concrete, high-fidelity nonlinear finite element simulation, and the experimental study of steel-concrete composite and modular structures. The work spans the full path from material behaviour to system-level seismic performance, and increasingly into digital twins for structures already in service.
 
-Before joining HKU in January 2023, Prof. Wang was a JSPS Postdoctoral Fellow at Kyoto University and a Postdoctoral Associate at the University of Houston. He received his PhD and BS (first-class honours) from Tsinghua University under the supervision of Prof. Jianguo Nie, Member of the Chinese Academy of Engineering, and spent 2017 at Northeastern University in Boston as a Visiting Scholar with Prof. Jerome F. Hajjar, Member of the US National Academy of Engineering.
+Before joining HKU in January 2023, Prof. Wang was a JSPS Postdoctoral Fellow at Kyoto University and a Postdoctoral Associate at the University of Houston. He received his PhD and BS (first-class honours) from Tsinghua University under the supervision of Prof. Jianguo Nie, Member of the Chinese Academy of Engineering.
 
 ## Appointments
 
@@ -15,7 +15,6 @@ Before joining HKU in January 2023, Prof. Wang was a JSPS Postdoctoral Fellow at
 ## Education
 
 - **PhD, Civil Engineering** — Tsinghua University (2014 – 2019), advised by Prof. Jianguo Nie, Member of the Chinese Academy of Engineering
-- **Visiting Scholar** — Northeastern University, Boston (July 2017 – October 2017), hosted by Prof. Jerome F. Hajjar, Member of the US National Academy of Engineering
 - **BS, Civil Engineering, first-class honours** — Tsinghua University (2010 – 2014)
 
 ## Research Interests
@@ -44,4 +43,4 @@ Pokfulam, Hong Kong SAR, China
 
 Email: cewang[at]hku.hk
 
-Profiles: [HKU Scholars Hub](https://hub.hku.hk/cris/rp/rp03096) &nbsp;&middot;&nbsp; [Google Scholar](https://scholar.google.com/citations?user=ejxKwgkAAAAJ) &nbsp;&middot;&nbsp; [ResearchGate](https://www.researchgate.net/profile/Wang-Jiaji) &nbsp;&middot;&nbsp; [GitHub](https://github.com/wangjiajiTHU)
+Profiles: [HKU Scholars Hub](https://hub.hku.hk/cris/rp/rp03096) · [Google Scholar](https://scholar.google.com/citations?user=ejxKwgkAAAAJ) · [ResearchGate](https://www.researchgate.net/profile/Wang-Jiaji) · [GitHub](https://github.com/wangjiajiTHU)
