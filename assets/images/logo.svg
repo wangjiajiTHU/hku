@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" width="360" height="96" role="img" aria-label="SAIL@HKU — Structural Artificial Intelligence Laboratory">
+  <title>SAIL@HKU — Structural Artificial Intelligence Laboratory</title>
+  <rect width="96" height="96" rx="18" fill="#0b3d6b"/>
+  <g stroke="#8fd0ff" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M21 75V33M75 75V33M17 33h62"/>
+    <path d="M12 78h72"/>
+  </g>
+  <g stroke="#ffd15c" stroke-width="3.4" stroke-linecap="round">
+    <path d="M21 33 48 20 75 33"/>
+  </g>
+  <g fill="#ffd15c">
+    <circle cx="21" cy="33" r="6.2"/>
+    <circle cx="48" cy="20" r="6.2"/>
+    <circle cx="75" cy="33" r="6.2"/>
+  </g>
+  <text x="116" y="46" font-family="Lato, 'Helvetica Neue', Arial, sans-serif" font-size="34" font-weight="700" fill="#0b3d6b">SAIL@HKU</text>
+  <text x="117" y="70" font-family="Lato, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#4a6b88">Structural Artificial Intelligence Laboratory</text>
+</svg>

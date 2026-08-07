@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publications &mdash; Prof. Jiaji Wang | SAIL@HKU</title>
+  <meta name="description" content="Searchable list of journal papers and conference presentations by Prof. Jiaji Wang and the Structural Artificial Intelligence Laboratory at The University of Hong Kong.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body id="publications-page">
+  <div id="header"></div>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main class="content">
+      <div class="publications-wrapper">
+        <!--
+          Tabs switch which fragment from elements/ is loaded into
+          #publicationsContent: journal.html, conference.html or list.html.
+          The wiring lives in switchPublicationType() in publications.js.
+        -->
+        <div class="publication-type-selector">
+          <button class="pub-type-btn active" data-type="journal">Journal Papers</button>
+          <button class="pub-type-btn" data-type="preprint">Preprints</button>
+          <button class="pub-type-btn" data-type="list">Full List (CV)</button>
+        </div>
+
+        <div id="publicationsContent"></div>
+
+        <!-- Author markers baked into the citations by tools/mark-authors.js -->
+        <p class="author-marker-legend">
+          <span class="marker-key">*</span> corresponding author
+          &nbsp;&middot;&nbsp;
+          <span class="marker-key">#</span> co-first author
+          &nbsp;&middot;&nbsp;
+          <strong>bold</strong> indicates Prof. Wang
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- Inlined copies of the fragments/Markdown/JSON below, so the site also
+       works when opened directly from disk (file://), where fetch() is blocked.
+       Regenerate with: node tools/build-offline-bundle.js -->
+  <script src="assets/js/offline-bundle.js"></script>
+  <script src="configuration.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/publications.js"></script>
+</body>
+</html>

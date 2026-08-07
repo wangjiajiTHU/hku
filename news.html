@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News &mdash; SAIL@HKU</title>
+  <meta name="description" content="News, awards, grants and announcements from the Structural Artificial Intelligence Laboratory at The University of Hong Kong.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body id="news-page">
+  <div id="header"></div>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main class="content">
+      <section class="content-card">
+        <h1>News</h1>
+
+        <!-- Wired up by initNewsPage() in main.js -->
+        <div class="news-controls">
+          <input type="text" id="newsSearch" placeholder="Search news&hellip;" aria-label="Search news">
+          <label for="newsSort" class="sort-label">Sorted by:</label>
+          <select id="newsSort" aria-label="Sort news">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </div>
+
+        <div id="allNews" class="news-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- Inlined copies of the fragments/Markdown/JSON below, so the site also
+       works when opened directly from disk (file://), where fetch() is blocked.
+       Regenerate with: node tools/build-offline-bundle.js -->
+  <script src="assets/js/offline-bundle.js"></script>
+  <script src="configuration.js"></script>
+  <script src="news/news-list.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

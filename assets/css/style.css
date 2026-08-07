@@ -1,0 +1,3275 @@
+/*
+ * Base stylesheet for Dr. Siwei Liu’s personal website.
+ *
+ * This CSS defines a clean, responsive layout inspired by
+ * contemporary academic websites. It uses CSS custom properties
+ * (variables) to support light and dark themes.  When the
+ * `.dark-mode` class is applied to the `<body>` element the
+ * variables are reassigned, resulting in a night-mode colour
+ * palette.  Feel free to tweak the variable values to suit your
+ * preferences.
+ */
+
+
+/* Local Lato font face declarations for offline support */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/lato/lato-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/lato/lato-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/lato/lato-bold.ttf') format('truetype');
+}
+/* Theme variables */
+:root {
+  --bg-color: #f5f5f5; /* Subtle background color similar to demo */
+  --bg-gradient: linear-gradient(135deg, #f3f9ff 0%, #e8f4fd 25%, #ddeeff 50%, #d2e8ff 75%, #c7e2ff 100%); /* High-tech light blue gradient */
+  --text-color: #222222;
+  --nav-bg: #ffffff;
+  --nav-text: #222222;
+  --nav-border: #e0e0e0;
+  --link-color: #0056b3;
+  --link-hover-color: #003d80;
+  --footer-bg: #f8f8f8;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  /* Professional blue highlight colors */
+  --highlight-bg: #e3f2fd;
+  --highlight-border: #2196f3;
+  --active-bg: #1976d2;
+  --active-text: #ffffff;
+  --hover-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =================== Sidebar research tags and citation metrics =================== */
+/* Ensure research tags display consistently even in fallback mode */
+.research-tags-widget {
+  margin-top: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--nav-border);
+}
+.tags-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.research-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--tag-color) 0%, var(--tag-color-dark, var(--tag-color)) 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: tagFadeIn 0.4s ease-out forwards;
+  animation-delay: var(--animation-delay);
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: none;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+@keyframes tagFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.research-tag:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.1);
+}
+.research-tag:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+/* Citation table styling */
+.citation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+.citation-table th,
+.citation-table td {
+  padding: 4px 6px;
+  text-align: left;
+  border-bottom: 1px solid var(--nav-border);
+}
+.citation-table th {
+  font-weight: 600;
+  background-color: var(--card-bg);
+}
+.citation-source {
+  font-size: 0.7rem;
+  margin-top: 4px;
+  color: var(--nav-text);
+}
+.citation-source a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+.citation-source a:hover {
+  text-decoration: underline;
+}
+
+/* Make citation metrics more compact on very small screens */
+@media (max-width: 768px) {
+  .citation-table {
+    font-size: 0.7rem;
+  }
+  .citation-source {
+    font-size: 0.6rem;
+  }
+}
+
+/* Sidebar icon image styling (moved from inline style) */
+.sidebar-icon-img {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Dark mode: make ORCID and Google Scholar icons white */
+body.dark-mode .sidebar-icon-img[alt="ORCID"],
+body.dark-mode .sidebar-icon-img[alt="Google Scholar"] {
+  filter: brightness(0) invert(1);
+}
+
+/* =================== Publication category navigation ===================== */
+/* Buttons used in the publications page to jump to journal, conference and book chapter sections. */
+.pub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.pub-btn {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Colors for each type */
+.pub-btn.journal {
+  background-color: #007bff; /* blue */
+}
+.pub-btn.conference {
+  background-color: #28a745; /* green */
+}
+.pub-btn.book {
+  background-color: #6f42c1; /* purple */
+}
+
+.pub-btn:hover {
+  filter: brightness(1.1);
+}
+
+
+body.dark-mode {
+  --bg-color: #1a1a1a;
+  --bg-gradient: linear-gradient(135deg, #2c3e7e 0%, #3d5093 20%, #4d66ab 40%, #6d7fc0 60%, #8d9acb 80%, #adb8da 100%); /* High-tech lighter dark blue gradient */
+  --text-color: #e0e0e0;
+  --nav-bg: #1e1e1e;
+  --nav-text: #e0e0e0;
+  --nav-border: #333333;
+  --link-color: #82aaff;
+  --link-hover-color: #aacbff;
+  --footer-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  /* Better dark mode highlight colors - using purple/indigo theme */
+  --highlight-bg: #2a2d47;
+  --highlight-border: #6366f1;
+  --active-bg: #4f46e5;
+  --active-text: #ffffff;
+}
+
+/* Dark mode adjustments for research tags and avatar */
+body.dark-mode .research-tag {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .research-tag:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .sidebar-logo img {
+  border-color: var(--card-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  /* Times New Roman throughout.  Liberation Serif and Nimbus Roman are the
+     metric-compatible substitutes shipped on Linux, and the generic `serif`
+     catches everything else, so the page keeps its proportions on machines
+     without the Microsoft font. */
+  font-family: "Times New Roman", "Liberation Serif", "Nimbus Roman", Times, serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+  /* Add top padding to account for fixed header */
+  padding-top: 60px;
+  /* Page transition effects - ultra fast and smooth */
+  opacity: 1;
+  animation: fadeIn 0.1s ease-out;
+  /* Optimize rendering for smooth transitions */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page fade-in animation - ultra fast */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page transition class for JavaScript - ultra fast transitions */
+.page-transition {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.08s ease-out, transform 0.08s ease-out;
+  /* Enable hardware acceleration for smooth performance */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.page-transition.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Container utility class */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navigation bar */
+.site-nav {
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Ensure the header stays on top during scrolling */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* Add slight transparency for better visibility during scroll */
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Dark mode navigation background */
+body.dark-mode .site-nav {
+  background-color: rgba(30, 30, 30, 0.95);
+}
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  height: 60px;
+  box-sizing: border-box;
+}
+/* Remove nav-title styles since we no longer have it */
+.nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  transition: var(--hover-transition);
+}
+
+.nav-toggle:hover {
+  background-color: var(--highlight-bg);
+  color: var(--link-color);
+}
+
+.nav-toggle-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: var(--hover-transition);
+}
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  /* Menu now takes up left side */
+}
+.nav-menu li {
+  position: relative;
+  /* Add subtle separation between menu items */
+  margin-right: 0.25rem;
+}
+.nav-menu li a {
+  color: var(--nav-text);
+  padding: 0.75rem 1rem;
+  display: block;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: var(--hover-transition);
+  position: relative;
+  text-decoration: none;
+  /* Add border-bottom for visual separation */
+  border-bottom: 2px solid transparent;
+}
+.nav-menu li a:hover {
+  background-color: var(--highlight-bg);
+  color: var(--link-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+  /* Show light blue bottom border on hover */
+  border-bottom-color: var(--link-color);
+}
+/* Active page highlighting */
+.nav-menu li a.active {
+  background-color: var(--active-bg);
+  color: var(--active-text);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+  border-bottom-color: var(--active-text);
+}
+/* Smooth animation for menu items - keep the existing underline effect */
+.nav-menu li a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px; /* Position below the border */
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--highlight-border);
+  transition: var(--hover-transition);
+  transform: translateX(-50%);
+}
+.nav-menu li a:hover::before {
+  width: 80%;
+}
+
+
+/* Display rules for theme icons: hide sun by default, show in dark mode */
+/* Theme toggle icons default sizing; the visibility is toggled via JS. */
+.theme-toggle .sun-icon,
+.theme-toggle .moon-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Hide the sun icon by default; JS will swap their display when in dark mode */
+.theme-toggle .sun-icon {
+  display: none;
+}
+.theme-toggle .moon-icon {
+  display: inline;
+}
+
+body.dark-mode .theme-toggle .sun-icon {
+  display: inline;
+}
+body.dark-mode .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* ----------------------------------------------------------------------
+ * Header right section and expandable search bar
+ *
+ * The search bar is collapsed by default and displays only the search icon.
+ * When the user clicks on the icon, the `.active` class is applied via
+ * JavaScript (see main.js).  In the expanded state the input becomes
+ * visible and the container grows to accommodate it.  The search and
+ * theme icons inherit the current text colour so they remain legible
+ * across light and dark themes.
+ */
+
+/* Container for search and theme toggle on the right side of the header */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Search container - shorter initial width, expandable on click */
+.nav-search {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--nav-border);
+  border-radius: 20px;
+  background-color: var(--card-bg);
+  padding: 0.3rem 0.5rem;
+  transition: var(--hover-transition);
+  overflow: hidden;
+  max-width: 140px; /* Shorter initial width to show just "Search..." */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced focus and active states for search */
+.nav-search:focus-within{border-color:var(--highlight-border);box-shadow:0 0 0 3px rgba(33,150,243,.1),0 2px 8px rgba(0,0,0,.15);background-color:#fff}
+
+.nav-search.active{max-width:320px;border-color:var(--highlight-border);box-shadow:0 0 0 3px rgba(33,150,243,.15),0 4px 12px rgba(0,0,0,.2);background-color:#fff}
+
+/* Text input inside search bar */
+.nav-search input {
+  flex: 1 1 auto;
+  border: none;
+  background: transparent;
+  color: var(--nav-text);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  width: 100%;
+  opacity: 1;
+  transition: var(--hover-transition);
+}
+
+.nav-search input::placeholder {
+  color: var(--nav-text);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.nav-search input:focus {
+  outline: none;
+  opacity: 1;
+}
+
+.nav-search:focus-within input::placeholder {
+  opacity: 0.8;
+}
+
+/* Search button styling: just the icon */
+.nav-search button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  margin-left: 0.25rem;
+  cursor: pointer;
+  color: var(--nav-text);
+  border-radius: 4px;
+  transition: var(--hover-transition);
+}
+
+.nav-search button:hover {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: var(--link-color);
+  transform: scale(1.05);
+}
+
+/* Clear button inside search bar. It appears when text is entered and hides otherwise */
+.nav-search .search-clear {
+  background: none;
+  border: none;
+  margin-left: 0.25rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--nav-text);
+  display: none;
+  padding: 0 0.3rem;
+}
+.nav-search .search-clear:hover {
+  color: var(--link-color);
+}
+.nav-search .search-clear.visible {
+  display: block;
+}
+
+/* Suggestions dropdown shown below the search bar */
+.suggestions-container {
+  position: absolute;
+  right: 1rem;
+  top: calc(100% + 0.5rem);
+  width: 320px;
+  max-height: 300px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+.suggestions-container.visible {
+  display: block;
+}
+.suggestions-container .result-count {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--nav-border);
+}
+.suggestions-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.suggestions-container li {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--nav-border);
+  cursor: pointer;
+}
+.suggestions-container li:last-child {
+  border-bottom: none;
+}
+.suggestions-container li a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+}
+.suggestions-container li:hover {
+  background-color: var(--highlight-bg);
+}
+
+/* Utility class to hide elements visually but keep them accessible to screen readers */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Sidebar roles list styling */
+.sidebar-roles ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+  margin: 0 0 1rem 0;
+}
+.sidebar-roles li {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.sidebar-roles a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+.sidebar-roles a:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}
+
+/* Academic icons list styling in sidebar */
+.sidebar-academic-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.sidebar-academic-icons img {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+/* Theme toggle enhanced styling */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: var(--hover-transition);
+}
+
+.theme-toggle:hover {
+  background-color: var(--highlight-bg);
+  color: var(--link-color);
+  transform: scale(1.05);
+}
+
+
+
+/* Size and colour of SVG icons in search and theme toggles */
+.nav-search svg,
+.theme-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
+/* Layout with sidebar and content */
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.sidebar {
+  width: 300px; /* Increased from 260px to accommodate longer text */
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-right: none;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: sticky;
+  top: 76px; /* Account for fixed header (60px) + content margin-top (16px) */
+  max-height: calc(100vh - 76px);
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem; /* Align with welcome box top */
+  transition: box-shadow 0.2s ease;
+}
+
+.sidebar:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .sidebar {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .sidebar:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.content {
+  flex: 1;
+  padding: 0;
+  box-sizing: border-box;
+  /* Optimize for smooth transitions */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Contact page specific - ensure content takes full height and matches sidebar */
+#contact-page .content {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#contact-page .contact-form {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Mobile responsive for contact form */
+@media (max-width: 768px) {
+  #contact-page .sidebar {
+    display: none !important;
+  }
+  
+  #contact-page .contact-form {
+    width: 100% !important;
+    margin: 1rem !important;
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+    max-width: calc(100% - 2rem) !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* White box styling for welcome, job, recent publications, and about sections */
+#welcomeContent,
+#jobContent,
+#recentPublications,
+#aboutContent {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem !important; /* Override any inline styles */
+  transition: box-shadow 0.2s ease;
+}
+
+#welcomeContent:hover,
+#jobContent:hover,
+#recentPublications:hover,
+#aboutContent:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Ensure equal spacing between boxes - all have consistent spacing */
+#welcomeContent {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+#jobContent {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+#recentPublications {
+  margin-top: 1rem !important; /* Override inline style="margin-top: 2rem" */
+  margin-bottom: 1rem !important;
+}
+
+#aboutContent {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Remove margin from HR when inside content with white boxes */
+#home-page .content hr {
+  display: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+/* Ensure content inside these boxes has proper spacing */
+#welcomeContent > *,
+#jobContent > * {
+  margin: 0;
+}
+
+#welcomeContent > *:not(:last-child),
+#jobContent > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+/* Style for recent publications container */
+#recentPublicationsContainer {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/* Dark mode adjustments for white boxes */
+body.dark-mode #welcomeContent,
+body.dark-mode #jobContent,
+body.dark-mode #recentPublications,
+body.dark-mode #aboutContent {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #welcomeContent:hover,
+body.dark-mode #jobContent:hover,
+body.dark-mode #recentPublications:hover,
+body.dark-mode #aboutContent:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode #recentPublicationsContainer {
+  background-color: #1e1e1e;
+}
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+  }
+  .sidebar {
+    width: calc(100% - 2rem);
+    max-width: calc(100vw - 2rem);
+    border-right: none;
+    border-bottom: 1px solid var(--nav-border);
+    position: static;
+    max-height: none;
+    top: auto;
+    margin: 1rem;
+    box-sizing: border-box;
+  }
+  .content {
+    padding: 0 1rem;
+  }
+}
+
+/* Sidebar elements styling - Academic Pages style with tighter spacing */
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
+}
+.sidebar-logo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 4px solid var(--card-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: var(--hover-transition);
+}
+.sidebar-logo img:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+.sidebar-info {
+  text-align: center;
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
+}
+.sidebar-info h3 {
+  margin-top: 0;
+  margin-bottom: 0.25rem; /* Reduced from 0.5rem for tighter spacing */
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+/* Credentials line under the name */
+.sidebar-cred {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.9;
+  font-weight: 700;
+}
+.sidebar-position {
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
+  line-height: 1.4;
+}
+.sidebar-contact {
+  margin-bottom: 1rem; /* Reduced from 1.5rem */
+}
+.sidebar-contact p {
+  margin: 0.4rem 0; /* Reduced from 0.5rem */
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+}
+.sidebar-contact svg {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.sidebar-contact a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+.sidebar-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Generic small icon used in sidebar and footer contact lists */
+.sidebar-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+/* ORCID specific styling */
+.sidebar-icon.orcid-green {
+  opacity: 1; /* Full opacity for colored ORCID icon */
+}
+/* Academic links section styling */
+.sidebar-academic {
+  margin-top: 1rem;
+}
+.sidebar-academic p {
+  margin: 0.4rem 0;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+}
+.sidebar-academic a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 700;
+}
+.sidebar-academic a:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}
+
+/* Footer styles enhancements */
+.footer-links {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.footer-links li {
+  margin-bottom: 0.4rem;
+}
+.footer-links a {
+  color: var(--nav-text);
+}
+.footer-links a:hover {
+  color: var(--link-color);
+}
+.footer-social img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.4rem;
+}
+
+/* Search results page */
+.search-results-list {
+  list-style: none;
+  padding-left: 0;
+}
+.search-results-list li {
+  margin-bottom: 0.6rem;
+}
+.search-results-list li a {
+  color: var(--link-color);
+}
+.search-results-list li a:hover {
+  text-decoration: underline;
+}
+
+/* Publications page controls */
+.pub-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+.pub-controls select,
+.pub-controls input {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 4px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+.pub-controls input {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+.pub-controls span {
+  font-size: 0.9rem;
+}
+
+/* Publications list styling */
+.publications-list {
+  list-style: none;
+  padding-left: 0;
+}
+.publication-item {
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  cursor: default;
+}
+.publication-item .pub-year {
+  font-weight: 600;
+  margin-right: 0.3rem;
+}
+
+/* News list styling for home page */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.news-item {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px var(--card-shadow);
+}
+.news-thumb {
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.news-info {
+  flex: 1;
+}
+.news-info h3 {
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+.news-info .news-date {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 0.3rem;
+}
+.news-info .news-summary {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Team page styles */
+#teamContent {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+#teamContent:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode #teamContent {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode #teamContent:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.team-member {
+  background-color: var(--card-bg);
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px var(--card-shadow);
+  padding: 1rem;
+  text-align: center;
+}
+.team-member h3 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.1rem;
+}
+.team-member p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px; /* Slightly more space on mobile */
+  }
+  
+  .nav-container {
+    padding: 0.5rem 1rem;
+    height: 70px;
+    position: relative;
+  }
+  
+  .nav-brand {
+    order: 1;
+    margin-right: auto;
+  }
+  
+  .nav-right {
+    order: 2;
+    flex-grow: 0;
+    margin-right: 0.5rem;
+  }
+  
+  .nav-toggle {
+    display: flex;
+    order: 4; /* Put hamburger menu on the right */
+    margin-left: 0;
+  }
+  
+  /* When search is active, hide brand and expand search */
+  .nav-container:has(.nav-search.active) .nav-brand {
+    display: none;
+  }
+  
+  .nav-container:has(.nav-search.active) .nav-right {
+    order: 1;
+    flex-grow: 1;
+    margin-right: 0.5rem;
+  }
+  
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--nav-bg);
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    gap: 0;
+    z-index: 1001; /* Higher than the header */
+    /* Ensure mobile menu is also semi-transparent */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  
+  /* Dark mode mobile menu */
+  body.dark-mode .nav-menu {
+    background-color: rgba(30, 30, 30, 0.95);
+  }
+  
+  .nav-menu.open {
+    display: flex;
+  }
+  
+  .nav-menu li {
+    width: 100%;
+    border-bottom: 1px solid var(--nav-border);
+  }
+  
+  .nav-menu li:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-menu li a {
+  font-weight: 700;
+    padding: 1rem;
+    width: 100%;
+    display: block;
+    border-radius: 0;
+    /* Add subtle bottom border for mobile menu items */
+    border-bottom: 1px solid transparent;
+  }
+  
+  .nav-menu li a:hover {
+    background-color: var(--highlight-bg);
+    transform: none;
+    border-bottom-color: var(--link-color);
+  }
+  
+  .nav-menu li a.active {
+    background-color: var(--active-bg);
+    color: var(--active-text);
+    border-bottom-color: var(--active-text);
+  }
+
+  /* On mobile, make search bar more compact initially but still expandable */
+  .nav-search {
+    /* Let the search bar take available space when navigation collapses */
+    flex-grow: 1;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+  /* When search bar is active on mobile, expand to full width */
+  .nav-search.active {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* Footer styles */
+.site-footer {
+  background-color: var(--footer-bg);
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--nav-border);
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+.footer-section {
+  flex: 1 1 250px;
+}
+.footer-section h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.footer-bottom {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+/* Hero section */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-text {
+  flex: 1 1 60%;
+  padding-right: 1rem;
+}
+.hero-text h1 {
+  margin-top: 0;
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+.hero-text h2 {
+  font-size: 1.5rem;
+  color: var(--link-color);
+  margin-bottom: 0.5rem;
+}
+.hero-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.hero-description {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-buttons {
+  margin-bottom: 1.5rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+.btn.primary {
+  background-color: var(--link-color);
+}
+.btn.primary:hover {
+  background-color: var(--link-hover-color);
+}
+.btn.secondary {
+  background-color: #6c757d;
+}
+.btn.secondary:hover {
+  background-color: #5a6268;
+}
+.hero-image {
+  flex: 1 1 40%;
+  text-align: center;
+}
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--card-shadow);
+}
+
+/* Section styling */
+.section {
+  padding: 2rem 1rem;
+}
+.section-title {
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.card {
+  flex: 1 1 250px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px var(--card-shadow);
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Publications list */
+.publications-list {
+  list-style: none;
+  padding-left: 0;
+}
+.publications-list li {
+  margin-bottom: 0.8rem;
+}
+
+/* CV page styles */
+.cv-section {
+  margin-bottom: 2rem;
+}
+.cv-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--nav-border);
+  padding-bottom: 0.5rem;
+}
+.cv-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.cv-list li {
+  margin-bottom: 0.4rem;
+}
+
+/* Device test page */
+.device-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.device-controls label {
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+.device-controls select, .device-controls input[type="range"] {
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+.device-frame {
+  border: 1px solid var(--nav-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  box-shadow: 0 4px 12px var(--card-shadow);
+}
+.device-info {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--link-color);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--link-hover-color);
+  transform: translateY(15px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
+/* Dark mode styling for scroll button */
+body.dark-mode .scroll-to-top {
+  background-color: var(--highlight-border);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+body.dark-mode .scroll-to-top:hover {
+  background-color: var(--active-bg);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+}
+
+/* Mobile responsiveness for scroll button */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .scroll-to-top svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+/* Brand name - website title on left side of header */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between logo and text */
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--nav-text);
+  margin-right: 2rem; /* Increased spacing between brand and menu */
+  text-decoration: none;
+  white-space: nowrap;
+  transition: var(--hover-transition);
+}
+
+.nav-brand:hover {
+  color: var(--link-color);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* Logo icon styling */
+.nav-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  transition: var(--hover-transition);
+}
+
+.nav-brand:hover .nav-logo {
+  transform: translateY(-1px);
+}
+
+/* Dark mode: make logo white */
+body.dark-mode .nav-logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Sidebar research interest tags */
+.sidebar-tags{margin-top:1rem;padding-top:.5rem;border-top:1px solid var(--nav-border)}
+.sidebar-tags h4{margin:.2rem 0 .5rem 0;font-size:1rem}
+.tag-container{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{display:inline-block;padding:.25rem .55rem;border:1px solid var(--nav-border);border-radius:999px;font-size:.85rem;background:var(--nav-bg);cursor:pointer;user-select:none;transition:transform .15s ease, background .15s ease, color .15s ease}
+.tag:hover{transform:translateY(-1px)}
+.tag.active{background:var(--link-color);color:#fff;border-color:var(--link-color)}
+
+
+/* Footer columns */
+.footer-columns{display:flex;flex-wrap:wrap;gap:2rem}
+.footer-column{flex:1 1 220px;min-width:180px}
+.footer-column h4{margin:.2rem 0 .5rem 0;font-size:1.05rem}
+.footer-list{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.footer-list a{color:var(--text-color);text-decoration:none}
+.footer-list a:hover{color:var(--link-color);text-decoration:underline}
+
+/* Research interests list styling in about page - matching demo website badge style */
+#markdownContent .research-interests-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 2rem 0;
+}
+
+#markdownContent .research-interests-list li {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#markdownContent .research-interests-list li:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.1);
+}
+
+/* Alternative approach: style research interests with different colors */
+#markdownContent .research-interests-list li:nth-child(1) {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+}
+#markdownContent .research-interests-list li:nth-child(2) {
+  background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+}
+#markdownContent .research-interests-list li:nth-child(3) {
+  background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);
+}
+#markdownContent .research-interests-list li:nth-child(4) {
+  background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%);
+}
+#markdownContent .research-interests-list li:nth-child(5) {
+  background: linear-gradient(135deg, #0097a7 0%, #00838f 100%);
+}
+#markdownContent .research-interests-list li:nth-child(6) {
+  background: linear-gradient(135deg, #c2185b 0%, #ad1457 100%);
+}
+#markdownContent .research-interests-list li:nth-child(7) {
+  background: linear-gradient(135deg, #5d4037 0%, #4e342e 100%);
+}
+#markdownContent .research-interests-list li:nth-child(8) {
+  background: linear-gradient(135deg, #455a64 0%, #37474f 100%);
+}
+#markdownContent .research-interests-list li:nth-child(9) {
+  background: linear-gradient(135deg, #303f9f 0%, #283593 100%);
+}
+#markdownContent .research-interests-list li:nth-child(n+10) {
+  background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+}
+
+body.dark-mode #markdownContent .research-interests-list li {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode #markdownContent .research-interests-list li:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Publications Page Styling */
+.publications-intro {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--link-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.publications-intro p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.publications-section {
+  margin-bottom: 3rem;
+}
+
+.publications-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--link-color);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.publications-section h2 .count {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.publications-list {
+  list-style: none;
+  counter-reset: publication-counter;
+  padding: 0;
+  margin: 0;
+}
+
+.publications-list li {
+  counter-increment: publication-counter;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background-color: var(--card-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--link-color);
+  transition: var(--hover-transition);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.publications-list li:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(4px);
+}
+
+.publication-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.publication-badge {
+  display: inline-block;
+  background-color: var(--link-color);
+  color: #fff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Colour-code publication badges by type */
+.publication-badge.journal {
+  background-color: #007bff;
+}
+.publication-badge.conference {
+  background-color: #28a745;
+}
+.publication-badge.book {
+  background-color: #6f42c1;
+}
+
+.publication-citation {
+  flex: 1 1 calc(100% - 150px);
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.doi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--highlight-bg);
+  color: var(--link-color);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: var(--hover-transition);
+  flex-shrink: 0;
+}
+
+.doi-link:hover {
+  background-color: var(--link-color);
+  color: white;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+}
+
+.doi-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Inline DOI link style: appear on the same line as citation with minimal styling */
+.doi-inline {
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--link-color);
+  text-decoration: underline;
+  display: inline;
+  cursor: pointer;
+}
+.doi-inline:hover {
+  color: var(--link-hover-color);
+}
+body.dark-mode .doi-inline:hover {
+  color: var(--link-hover-color);
+}
+
+/* Dark mode adjustments for publications */
+body.dark-mode .publications-intro {
+  background-color: var(--card-bg);
+  border-left-color: var(--link-color);
+}
+
+body.dark-mode .publications-list li {
+  background-color: var(--card-bg);
+  border-left-color: var(--link-color);
+}
+
+body.dark-mode .doi-link {
+  background-color: rgba(33, 150, 243, 0.15);
+}
+
+body.dark-mode .doi-link:hover {
+  background-color: var(--link-color);
+}
+
+/* Responsive design for publications */
+@media (max-width: 768px) {
+  .publications-section h2 {
+    font-size: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .publication-content {
+    /* Keep items on the same line and allow wrapping on small screens */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
+
+  .publication-citation {
+    flex: 1 1 auto;
+  }
+}
+
+/* Publications Wrapper - contains tabs and content */
+.publications-wrapper {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.publications-wrapper:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .publications-wrapper {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .publications-wrapper:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Publications Container */
+.publications-container {
+  max-width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+}
+
+body.dark-mode .publications-container {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.publications-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--link-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Controls Panel */
+.pub-controls-panel {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  margin-bottom: 2rem;
+  box-shadow: none;
+}
+
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.controls-row-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.controls-row-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.sort-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-label {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.results-count-inline {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  order: 3;
+}
+
+.results-count-number {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #000000;
+}
+
+body.dark-mode .results-count-number {
+  color: #ffffff;
+}
+
+
+.view-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+  order: 4;
+}
+
+.filter-label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  order: 1;
+}
+
+.filter-select {
+  order: 2;
+}
+
+.search-box-container {
+  flex: 1 1 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.6rem 2.5rem 0.6rem 1rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: var(--hover-transition);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0.25rem;
+  line-height: 1;
+  display: none;
+  z-index: 10;
+}
+
+.search-clear-btn.visible {
+  display: block;
+}
+
+.search-clear-btn:hover {
+  opacity: 1;
+}
+
+.filter-select {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  padding: 0.25rem;
+  background-color: var(--card-bg);
+}
+
+.view-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: var(--hover-transition);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn:hover {
+  opacity: 1;
+  background-color: var(--highlight-bg);
+}
+
+.view-btn.active {
+  opacity: 1;
+  background-color: var(--link-color);
+  color: white;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: var(--hover-transition);
+}
+
+.sort-btn:hover {
+  background-color: var(--highlight-bg);
+  border-color: var(--link-color);
+}
+
+.sort-btn-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: var(--hover-transition);
+  white-space: nowrap;
+}
+
+.sort-btn-inline:hover {
+  background-color: var(--highlight-bg);
+  border-color: var(--link-color);
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-top: 0.5rem;
+}
+
+/* Journal List View - ResearchGate Style */
+.journal-list-view .publications-list li {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f0f4f8;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.journal-list-view .publications-list li:hover {
+  background-color: #fefbf0;
+}
+
+body.dark-mode .journal-list-view .publications-list li {
+  background-color: #2a2f35;
+}
+
+body.dark-mode .journal-list-view .publications-list li:hover {
+  background-color: #3a3228;
+}
+
+/* Line 1: Paper ID and Title */
+.paper-line-1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.paper-id {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--link-color);
+}
+
+.paper-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+/* Line 2: Publication date, Journal, Volume */
+.paper-line-2 {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+body.dark-mode .paper-line-2 {
+  color: #aaa;
+}
+
+.paper-date {
+  color: #666;
+}
+
+body.dark-mode .paper-date {
+  color: #aaa;
+}
+
+.paper-journal {
+  color: #000;
+  font-weight: 700;
+}
+
+body.dark-mode .paper-journal {
+  color: #fff;
+}
+
+.paper-separator {
+  color: #666;
+  margin: 0 0.5rem;
+}
+
+body.dark-mode .paper-separator {
+  color: #aaa;
+}
+
+.paper-volume {
+  color: #666;
+}
+
+body.dark-mode .paper-volume {
+  color: #aaa;
+}
+
+/* Line 3: DOI */
+.paper-line-3 {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.paper-doi-label {
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.paper-doi-link {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.paper-doi-link:hover {
+  color: var(--link-hover-color);
+}
+
+/* Line 4: Authors */
+.paper-line-4 {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.paper-line-4 strong {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+
+.paper-keywords-small {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.clickable-keyword {
+  transition: all 0.2s ease;
+}
+
+.clickable-keyword:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.keyword-tag-small {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+}
+
+.paper-abstract-container {
+  margin-bottom: 0.75rem;
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--nav-border);
+}
+
+.abstract-click-text {
+  display: block;
+  color: var(--link-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.abstract-click-text:hover {
+  color: var(--link-hover-color);
+}
+
+.abstract-arrow {
+  display: inline-block;
+  margin-right: 0.3rem;
+  transition: transform 0.2s ease;
+}
+
+.abstract-toggle-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--link-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-family: inherit;
+  user-select: none;
+}
+
+.abstract-toggle-btn:hover {
+  color: var(--link-hover-color);
+}
+
+.abstract-label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.paper-abstract-hidden {
+  display: none;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.paper-abstract-hidden.visible {
+  display: block;
+}
+
+.paper-abstract-hidden:hover {
+  opacity: 1;
+}
+
+/* Last line: Citation (APA) */
+.paper-citation-line {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--nav-border);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.citation-label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.citation-text {
+  color: var(--text-color);
+  opacity: 0.9;
+  font-style: italic;
+}
+
+/* Compact View */
+.journal-compact-view {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.compact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.compact-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--nav-border);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-radius: 6px;
+  margin: 0.25rem 0;
+  transition: background-color 0.2s ease;
+}
+
+.compact-list li:hover {
+  background-color: #fefbf0;
+}
+
+.compact-list li:last-child {
+  border-bottom: none;
+}
+
+body.dark-mode .compact-list li:hover {
+  background-color: #3a3228;
+}
+
+.compact-paper-id {
+  font-weight: 700;
+  color: var(--link-color);
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
+.compact-paper-title {
+  flex: 1;
+  color: var(--text-color);
+}
+
+.compact-paper-apa {
+  flex: 1;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.compact-paper-apa em strong {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.compact-doi-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+/* Full List Styles */
+.full-list-container {
+  margin-top: 1rem;
+}
+
+.full-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.full-list-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--nav-border);
+  line-height: 1.6;
+  color: var(--text-color);
+  border-radius: 6px;
+  margin: 0.25rem 0;
+  transition: background-color 0.2s ease;
+}
+
+.full-list-item:hover {
+  background-color: #fefbf0;
+}
+
+.full-list-item:last-child {
+  border-bottom: none;
+}
+
+body.dark-mode .full-list-item:hover {
+  background-color: #3a3228;
+}
+
+.full-list-section-header {
+  padding: 1rem 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--nav-border);
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.full-list-section-header:first-child {
+  margin-top: 0;
+  padding-top: 0.5rem;
+}
+
+.full-list-id {
+  font-weight: 700;
+  color: var(--link-color);
+  margin-right: 0.5rem;
+}
+
+.full-list-item strong {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.compact-doi-link:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Pagination Styles */
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--nav-border);
+  gap: 1rem;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--nav-border);
+  border-radius: 4px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  min-width: 36px;
+  height: 36px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: var(--card-bg);
+  border-color: var(--link-color);
+  color: var(--link-color);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-page-info {
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.pagination-items-per-page {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-items-per-page label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.pagination-select {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--nav-border);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-select:hover {
+  border-color: var(--link-color);
+}
+
+.pagination-select:focus {
+  outline: none;
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+@media (max-width: 768px) {
+  .pagination-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .pagination-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .pagination-info,
+  .pagination-items-per-page {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+.compact-paper-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.compact-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.compact-link:hover {
+  text-decoration: underline;
+}
+
+/* Conference List */
+.conference-list-container {
+  margin-top: 1rem;
+}
+
+.conference-list-container .publications-list li {
+  padding: 1rem;
+}
+
+.publication-type-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--nav-border);
+  padding-bottom: 1rem;
+  margin-top: 0;
+}
+
+.pub-type-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: var(--hover-transition);
+  opacity: 0.7;
+}
+
+.pub-type-btn:hover {
+  opacity: 1;
+  color: var(--link-color);
+}
+
+.pub-type-btn.active {
+  opacity: 1;
+  color: var(--link-color);
+  border-bottom-color: var(--link-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  /* Mobile layout for controls-row-top */
+  .controls-row-top {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.25rem;
+    overflow: hidden;
+  }
+  
+  .search-box-container {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 180px);
+  }
+  
+  .sort-dropdown-container {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .sort-label {
+    margin-right: 0;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  
+  .sort-select {
+    min-width: 100px;
+    max-width: 120px;
+    flex-shrink: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Mobile layout for controls-row-bottom */
+  .controls-row-bottom {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .filter-label {
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .filter-select {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 140px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .results-count-inline {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  
+  .view-toggle {
+    flex-shrink: 0;
+    margin-left: 0.25rem;
+  }
+  
+  .view-btn {
+    padding: 0.4rem;
+  }
+  
+  .view-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .paper-header {
+    flex-direction: column;
+  }
+  
+  .compact-list li {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .compact-paper-links {
+    align-self: flex-start;
+  }
+}
+
+/* MSASect2 Page Styling */
+.msasect-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--link-color) 0%, #1565c0 100%);
+  color: white;
+  border-radius: 8px;
+}
+
+.msasect-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.msasect-header .subtitle {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+.msasect-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.badge-link {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: white;
+  color: var(--link-color);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: var(--hover-transition);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.badge-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.msasect-intro,
+.msasect-download,
+.msasect-features,
+.msasect-screenshots,
+.msasect-developers,
+.msasect-links,
+.msasect-license {
+  margin-bottom: 3rem;
+}
+
+.msasect-intro p,
+.msasect-download p,
+.msasect-license p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.download-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--link-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: var(--hover-transition);
+  box-shadow: 0 3px 8px rgba(33, 150, 243, 0.3);
+}
+
+.download-btn:hover {
+  background-color: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.download-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.download-note {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-top: 1rem;
+}
+
+.feature-group {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 6px;
+  border-left: 4px solid var(--link-color);
+}
+
+.feature-group h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--link-color);
+  font-size: 1.2rem;
+}
+
+.feature-group ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.feature-group li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.screenshot-item {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: var(--hover-transition);
+}
+
+.screenshot-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.screenshot-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.msasect-developers ul,
+.msasect-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.msasect-developers li,
+.msasect-links li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.msasect-developers li:before,
+.msasect-links li:before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--link-color);
+  font-weight: bold;
+}
+
+/* Dark mode adjustments for MSASect2 page */
+body.dark-mode .msasect-header {
+  background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+}
+
+body.dark-mode .feature-group {
+  background-color: var(--card-bg);
+  border-left-color: var(--link-color);
+}
+
+body.dark-mode .screenshot-item {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .screenshot-item:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive design for MSASect2 page */
+@media (max-width: 768px) {
+  .msasect-header h1 {
+    font-size: 2rem;
+  }
+  
+  .msasect-header .subtitle {
+    font-size: 1rem;
+  }
+  
+  .download-buttons {
+    flex-direction: column;
+  }
+  
+  .download-btn {
+    justify-content: center;
+  }
+  
+  .screenshot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Publications list styling in about page - merged seamlessly */
+#aboutContent #publicationsList {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#aboutContent #publicationsList p {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#aboutContent #publicationsList p:first-child {
+  margin-top: 0;
+}
+
+#aboutContent #publicationsList ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+#aboutContent #publicationsList ul:last-child {
+  margin-bottom: 0;
+}
+
+#aboutContent #publicationsList li {
+  margin-bottom: 0.75rem;
+  padding-left: 0;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+#aboutContent #publicationsList li:last-child {
+  margin-bottom: 0;
+}
+
+#aboutContent #publicationsList li strong {
+  color: var(--link-color);
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+/* Publications collapsible toggle header */
+.publications-toggle-header {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin: 1rem 0 0.5rem 0;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.publications-toggle-header:hover {
+  color: var(--link-color);
+}
+
+.publications-arrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--link-color);
+  transition: transform 0.2s ease;
+  margin-right: 0.25rem;
+}
+
+.publications-content {
+  margin-top: 0.5rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Shared content card
+   -----------------------------------------------------------------------------
+   The original template gave each page's container its own id-based rule
+   (#welcomeContent, #jobContent, ...).  Pages added later use the
+   `.content-card` class instead, which carries the same white panel treatment
+   without needing a new rule per page.  Both forms can be mixed freely.        */
+
+.content-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.content-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .content-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .content-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* First and last child margins collapse awkwardly inside the card, so trim
+   them and let the card's own padding do the spacing. */
+.content-card > :first-child {
+  margin-top: 0;
+}
+
+.content-card > :last-child {
+  margin-bottom: 0;
+}
+
+/* Section heading used on the home page above Recent Publications / News. */
+.home-section-title {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--nav-border);
+}
+
+/* "See all" link sitting under a home-page section. */
+.section-more {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* Contact page details list. */
+.contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-details li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--nav-border);
+}
+
+.contact-details li:last-child {
+  border-bottom: none;
+}
+
+.contact-details .contact-label {
+  flex: 0 0 7rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.contact-map {
+  width: 100%;
+  height: 340px;
+  border: 0;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Search results page. */
+.search-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.search-results-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--nav-border);
+}
+
+.search-results-list li:last-child {
+  border-bottom: none;
+}
+
+/* News listing controls on news.html. */
+.news-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.news-controls input,
+.news-controls select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.news-controls input {
+  flex: 1 1 240px;
+}
+
+/* Email addresses are printed as plain text with "[at]" instead of "@" and
+   without a mailto: link, so harvesters find nothing usable in the markup.
+   Keep them looking like the surrounding links. */
+.contact-email {
+  color: var(--link-color);
+  word-break: break-word;
+}
+
+/* -----------------------------------------------------------------------------
+   Author-role badges
+   -----------------------------------------------------------------------------
+   Every journal paper is marked as either a first/corresponding-author paper or
+   a collaboration, mirroring how the CV splits them.  The lead badge carries the
+   accent colour so it reads at a glance; the co-author badge stays quiet.      */
+
+.role-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  margin-right: 0.4rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.role-badge.role-lead {
+  background-color: #0b6bcb;
+  color: #ffffff;
+}
+
+.role-badge.role-co {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--nav-border);
+  opacity: 0.75;
+}
+
+body.dark-mode .role-badge.role-lead {
+  background-color: #4c9aff;
+  color: #10243e;
+}
+
+/* In compact view the id sits on its own line, so the badge needs a little air
+   above it rather than only to its right. */
+.compact-list .role-badge {
+  margin-top: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Count shown next to a section heading in the full CV list. */
+.full-list-count {
+  font-weight: 400;
+  opacity: 0.65;
+  font-size: 0.9em;
+}
+
+/* Legend for the "*" / "#" author markers under the publications list. */
+.author-marker-legend {
+  margin: 1.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--nav-border);
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.author-marker-legend .marker-key {
+  font-weight: 700;
+  color: var(--link-color);
+}
+
+/* Media links (video / talk / code / data) attached to a publication. */
+.paper-media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0;
+}
+
+.paper-media-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--link-color);
+  text-decoration: none;
+  transition: var(--hover-transition);
+}
+
+.paper-media-link:hover {
+  background-color: var(--link-color);
+  border-color: var(--link-color);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.paper-media-link svg {
+  flex-shrink: 0;
+}

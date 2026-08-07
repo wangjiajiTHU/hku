@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Home",
+    "url": "index.html",
+    "desc": "Structural Artificial Intelligence Laboratory at HKU — physics-informed machine learning, neural operators and computational mechanics for structural engineering."
+  },
+  {
+    "title": "Biography",
+    "url": "about.html",
+    "desc": "Dr. Jiaji Wang — Assistant Professor, Department of Civil Engineering, HKU. Appointments, education, research interests and professional service."
+  },
+  {
+    "title": "Research",
+    "url": "research.html",
+    "desc": "Physics-informed machine learning, neural operators, constitutive modelling, steel-concrete composite and modular structures, digital twins, seismic resilience, and current research grants."
+  },
+  {
+    "title": "Publications",
+    "url": "publications.html",
+    "desc": "Searchable list of journal papers, conference presentations and the full publication record."
+  },
+  {
+    "title": "Team",
+    "url": "team.html",
+    "desc": "Members of the Structural Artificial Intelligence Laboratory: principal investigator and PhD students."
+  },
+  {
+    "title": "Positions",
+    "url": "positions.html",
+    "desc": "Open PhD, postdoctoral and visiting scholar positions, funding schemes including HKPFS, and how to apply."
+  },
+  {
+    "title": "Contact",
+    "url": "contact.html",
+    "desc": "Office address, email and telephone for Dr. Jiaji Wang at Haking Wong Building, The University of Hong Kong."
+  },
+  {
+    "title": "News",
+    "url": "news.html",
+    "desc": "Group news, awards, grants and announcements."
+  }
+]

@@ -1,0 +1,75 @@
+<div class="publications-container">
+  <!-- Controls Section -->
+  <div class="pub-controls-panel">
+    <div class="controls-row-top">
+      <!-- Search Box with Clear Button -->
+      <div class="search-box-container">
+        <input type="text" id="journalSearch" class="search-input" placeholder="Search titles, authors, keywords, abstract, journal names...">
+        <button id="journalSearchClear" class="search-clear-btn" aria-label="Clear search">&times;</button>
+      </div>
+      
+      <!-- Sort Dropdown -->
+      <div class="sort-dropdown-container">
+        <span class="sort-label">Sorted by:</span>
+        <select id="sortSelect" class="sort-select">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title">Title</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="controls-row-bottom">
+      <!-- Author role filter: "lead" means Dr. Wang is first or corresponding
+           author, matching the split used in the CV. -->
+      <span class="filter-label">Role:</span>
+      <select id="roleFilter" class="filter-select">
+        <option value="All">All papers</option>
+        <option value="lead">First / corresponding author</option>
+        <option value="co-author">Co-author</option>
+      </select>
+
+      <!-- Filter Dropdown -->
+      <span class="filter-label">Journal:</span>
+      <!--
+        Options are rebuilt from the data by updateJournalFilterCounts() in
+        publications.js: every journal with three or more papers gets its own
+        entry, the rest are folded into "Others".  Only the default is listed
+        here so the markup cannot go stale.
+      -->
+      <select id="journalFilter" class="filter-select">
+        <option value="All">All Journals</option>
+      </select>
+      
+      <!-- Results Count -->
+      <div class="results-count-inline" id="journalResultsCount"></div>
+      
+      <!-- View Toggle Icons -->
+      <div class="view-toggle">
+        <button id="listViewBtn" class="view-btn active" aria-label="List view" title="List view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+          </svg>
+        </button>
+        <button id="compactViewBtn" class="view-btn" aria-label="Compact view" title="Compact view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- List View -->
+  <div id="journalListView" class="journal-list-view">
+    <ul id="journalList" class="publications-list"></ul>
+    <!-- Pagination Controls -->
+    <div id="journalPagination" class="pagination-container" style="display: none;"></div>
+  </div>
+  
+  <!-- Compact View -->
+  <div id="journalCompactView" class="journal-compact-view" style="display: none;">
+    <ul id="journalCompactList" class="compact-list"></ul>
+  </div>
+</div>
+

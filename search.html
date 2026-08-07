@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search &mdash; SAIL@HKU</title>
+  <meta name="description" content="Search the pages of the Structural Artificial Intelligence Laboratory website.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body id="search-page">
+  <div id="header"></div>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main class="content">
+      <section class="content-card">
+        <!--
+          Populated by initSearchPage() in main.js from data/search-index.json.
+          The query comes from the ?q= parameter.  For searching publications
+          rather than pages, the navigation search box goes to
+          publications.html?search=... instead.
+        -->
+        <h1>Results for &ldquo;<span id="searchQueryDisplay"></span>&rdquo;<span id="searchResultsCount"></span></h1>
+        <div id="searchResults"></div>
+        <p class="section-more">
+          Looking for a paper? Try the <a href="publications.html">Publications</a> page,
+          which searches titles, authors, abstracts and keywords.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- Inlined copies of the fragments/Markdown/JSON below, so the site also
+       works when opened directly from disk (file://), where fetch() is blocked.
+       Regenerate with: node tools/build-offline-bundle.js -->
+  <script src="assets/js/offline-bundle.js"></script>
+  <script src="configuration.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

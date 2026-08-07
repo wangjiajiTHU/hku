@@ -1,0 +1,102 @@
+<!--
+  Compact footer for the SAIL@HKU website.
+  Useful links on the left, copyright on the right; links collapse away on mobile.
+-->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-line" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <div style="text-align: left; flex: 1;">
+        <p style="margin: 0;">
+          <strong>Useful Links:</strong>
+          <a href="https://www.civil.hku.hk/" target="_blank" rel="noopener">HKU Civil Engineering</a>
+          <span>&bull;</span>
+          <a href="https://hub.hku.hk/" target="_blank" rel="noopener">HKU Scholars Hub</a>
+          <span>&bull;</span>
+          <a href="https://gradsch.hku.hk/" target="_blank" rel="noopener">HKU Graduate School</a>
+          <span>&bull;</span>
+          <a href="https://cerg1.ugc.edu.hk/hkpfs/index.html" target="_blank" rel="noopener">HKPFS</a>
+          <span>&bull;</span>
+          <a href="https://www.asce.org/" target="_blank" rel="noopener">ASCE</a>
+        </p>
+      </div>
+      <div style="text-align: right; white-space: nowrap; margin-left: 2rem;">
+        <p style="margin: 0;"><strong>&copy; 2026 Jiaji WANG</strong></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* Compact professional footer styling */
+.site-footer {
+  background-color: var(--footer-bg);
+  border-top: 1px solid var(--nav-border);
+  margin-top: 4rem;
+  padding: 1.5rem 0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: left;
+}
+
+.footer-line {
+  margin: 0.25rem 0;
+}
+
+.footer-line p {
+  margin: 0;
+  color: var(--text-color);
+  opacity: 0.85;
+}
+
+.footer-line a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: var(--hover-transition);
+}
+
+.footer-line a:hover {
+  text-decoration: underline;
+}
+
+.footer-line span {
+  color: var(--text-color);
+  opacity: 0.5;
+  margin: 0 0.15rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 1.25rem 0;
+    font-size: 0.85rem;
+  }
+
+  /* Hide useful links and centre the copyright on mobile */
+  .footer-line {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem;
+  }
+
+  .footer-line > div:first-child {
+    display: none !important;
+  }
+
+  .footer-line > div:last-child {
+    text-align: center !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+body.dark-mode .site-footer {
+  background-color: var(--footer-bg);
+  border-top-color: var(--nav-border);
+}
+</style>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="SAIL@HKU">
+  <title>SAIL@HKU</title>
+  <rect width="64" height="64" rx="12" fill="#0b3d6b"/>
+  <!-- portal frame: the structure -->
+  <g stroke="#8fd0ff" stroke-width="3.4" stroke-linecap="round" fill="none">
+    <path d="M14 50V22M50 50V22M11 22h42"/>
+  </g>
+  <!-- neural nodes over the frame: the AI -->
+  <g fill="#ffd15c">
+    <circle cx="14" cy="22" r="4.2"/>
+    <circle cx="32" cy="13" r="4.2"/>
+    <circle cx="50" cy="22" r="4.2"/>
+  </g>
+  <g stroke="#ffd15c" stroke-width="2.2" stroke-linecap="round">
+    <path d="M14 22 32 13 50 22"/>
+  </g>
+  <!-- ground -->
+  <path d="M8 52h48" stroke="#8fd0ff" stroke-width="3.4" stroke-linecap="round"/>
+</svg>

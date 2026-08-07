@@ -1,0 +1,25 @@
+[
+  {
+    "id": "P.1",
+    "year": "2026",
+    "title": "Replacement Learning: Training Neural Networks with Fewer Parameters",
+    "authors": [
+      "Yuming Zhang",
+      "Peizhe Wang",
+      "Tianyang Han",
+      "Hengyu Shi",
+      "Junhao Su",
+      "Dongzhi Guan",
+      "Jiabin Liu",
+      "Jiaji Wang"
+    ],
+    "repository": "arXiv",
+    "arxiv-id": "2605.19533v1",
+    "abstract": "End-to-end training with full-depth backpropagation remains the dominant paradigm for optimizing deep neural networks, but its efficiency deteriorates as models grow deeper. Since every block must be executed and differentiated under a single global objective, full-depth BP introduces substantial parameter redundancy, activation-memory cost, and training latency, especially when neighboring layers exhibit highly correlated learning patterns. Directly skipping or removing layers can reduce cost, but often weakens representation capacity or requires architecture-specific reuse designs. In this paper, we propose Replacement Learning (RepL), a training-time paradigm that reduces full-depth redundancy by replacing selected blocks rather than simply discarding them. For each removed block, RepL inserts a lightweight computing layer that synthesizes a surrogate operator from the parameters of its adjacent preceding and succeeding blocks through a learnable transformation, and applies the synthesized operator to the preceding activation. In this way, RepL preserves local contextual continuity while avoiding unnecessary full-layer computation. We instantiate RepL for CNNs and ViTs with tailored parameter-fusion blocks that handle convolutional channels, feature resolutions, and transformer submodules. Extensive experiments on CIFAR-10, SVHN, STL-10, ImageNet, COCO, and CityScapes show that RepL reduces trainable parameters, GPU memory usage, and training time while matching or surpassing standard end-to-end training across classification, detection, and segmentation. Additional results on WikiText-2, transfer learning, inference throughput, checkpointing, stochastic depth, and INT8 quantization further demonstrate its generality and compatibility.",
+    "doi": "10.48550/arXiv.2605.19533",
+    "link": "https://arxiv.org/abs/2605.19533",
+    "APA": "Zhang, Y., Wang, P., Han, T., Shi, H., Su, J., Guan, D., Liu, J., & Wang, J. (2026). Replacement Learning: Training Neural Networks with Fewer Parameters. arXiv:2605.19533.",
+    "publication-date": "2026-05",
+    "role": ""
+  }
+]

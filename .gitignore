@@ -6,3 +6,8 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+# Local working copies of published papers.  ~580 MB of publisher PDFs used
+# only to extract metadata into data/Journal-Papers.json; the site never links
+# to them, and committing them would permanently bloat the repository.
+published paper/
+*.pdf

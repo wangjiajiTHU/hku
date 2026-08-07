@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News &mdash; SAIL@HKU</title>
+  <meta name="description" content="A news item from the Structural Artificial Intelligence Laboratory at The University of Hong Kong.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body id="news-post-page">
+  <div id="header"></div>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main class="content">
+      <!--
+        The article body is fetched from news/<slug>/news.md by
+        initNewsPost() in main.js, where <slug> comes from the ?slug=
+        query parameter.
+      -->
+      <article id="newsContent" class="content-card"></article>
+      <p class="section-more"><a href="news.html">&larr; Back to all news</a></p>
+    </main>
+  </div>
+
+  <div id="footer"></div>
+
+  <!-- Inlined copies of the fragments/Markdown/JSON below, so the site also
+       works when opened directly from disk (file://), where fetch() is blocked.
+       Regenerate with: node tools/build-offline-bundle.js -->
+  <script src="assets/js/offline-bundle.js"></script>
+  <script src="configuration.js"></script>
+  <script src="news/news-list.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

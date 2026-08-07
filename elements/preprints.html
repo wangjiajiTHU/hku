@@ -1,0 +1,31 @@
+<!--
+  Preprints view for the publications page.
+
+  Populated by loadPreprints() in publications.js from data/Preprints.json.
+  Same compact layout as the journal compact view.
+-->
+<div class="publications-container">
+  <!-- Controls Section -->
+  <div class="pub-controls-panel">
+    <div class="controls-row-top">
+      <!-- Search Box with Clear Button -->
+      <div class="search-box-container">
+        <input type="text" id="preprintSearch" class="search-input" placeholder="Search titles, authors, repositories...">
+        <button id="preprintSearchClear" class="search-clear-btn" aria-label="Clear search">&times;</button>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="sort-dropdown-container">
+        <span class="sort-label">Sorted by:</span>
+        <select id="preprintSortSelect" class="sort-select">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="conference-list-container">
+    <ul id="preprintList" class="compact-list"></ul>
+  </div>
+</div>
