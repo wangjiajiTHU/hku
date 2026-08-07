@@ -33,37 +33,42 @@ function getRandomColor() {
 }
 
 // -----------------------------------------------------------------------------
-// Author role
+// Author role and position
 //
-// Every paper carries a `role`: "lead" when Dr. Wang is first or corresponding
-// author, "co-author" otherwise.  The distinction matters for a CV, so it is
-// shown as a badge on each entry and can be filtered on.  The value comes from
-// data/Journal-Papers.json, which mirrors the CV: J.1-J.47 are first or
-// corresponding author, J.48 onwards are collaborations.
+// Every paper carries a `role` — "lead" when Prof. Wang is first, co-first or
+// corresponding author, "co-author" otherwise — which drives the role filter.
+// Papers he led additionally carry `author-position`, naming which it was.
+// Both fields are written into data/Journal-Papers.json from the CV by
+// tools/mark-authors.js.
 
-const ROLE_LABELS = {
-  lead: 'First / Corresponding Author',
-  'co-author': 'Co-author'
+// Labels for the `author-position` field written by tools/mark-authors.js.
+// The field records exactly where Prof. Wang stood on each paper, so the badge
+// can say which it was instead of offering both and leaving the reader to
+// guess.
+const POSITION_LABELS = {
+  'first-corresponding': 'First & Corresponding Author',
+  'co-first-corresponding': 'Co-First & Corresponding Author',
+  corresponding: 'Corresponding Author',
+  'co-first': 'Co-First Author',
+  first: 'First Author'
 };
 
 // Which role the user is currently filtering on: 'All', 'lead' or 'co-author'.
 let roleFilter = 'All';
 
 /**
- * Badge markup for a paper's author role.
+ * Badge markup for a paper's author position.
  *
- * Only first/corresponding-author papers are badged.  A collaboration needs no
- * label: the absence of the badge already says it, and tagging two thirds of
- * the list with "Co-author" adds noise without adding information.  The word
- * still appears where it is doing work — the role filter and the CV section
- * heading.
+ * Only papers where Prof. Wang is first, co-first or corresponding author are
+ * badged.  A collaboration needs no label: the absence of a badge already says
+ * it, and tagging two thirds of the list adds noise without information.
  *
- * @param {string} role Either "lead" or "co-author"
+ * @param {object} paper The publication record
  * @returns {string} HTML for the badge, or '' when no badge should show
  */
-function roleBadge(role) {
-  if (role !== 'lead') return '';
-  const label = ROLE_LABELS.lead;
+function roleBadge(paper) {
+  const label = POSITION_LABELS[paper && paper['author-position']];
+  if (!label) return '';
   return `<span class="role-badge role-lead" title="${label}">${label}</span> `;
 }
 
@@ -331,7 +336,7 @@ function renderJournalListView(papers) {
     // Line 1: Paper ID, author-role badge and title
     html += `<div class="paper-line-1">`;
     html += `<span class="paper-id">${paperId}</span> `;
-    html += roleBadge(paper.role);
+    html += roleBadge(paper);
     html += `<span class="paper-title">${title}</span>`;
     html += `</div>`;
     
@@ -610,7 +615,7 @@ function renderJournalCompactView(papers) {
     const doi = paper.doi || '';
     
     let html = `<div class="compact-paper-id">${paperId}</div>`;
-    html += roleBadge(paper.role);
+    html += roleBadge(paper);
     // Format APA with italic and bold journal name
     // APA format typically has journal name after comma before volume
     // Example: "... Journal Name, 123, ..." or "... Journal Name, 123..."
@@ -886,7 +891,7 @@ function renderPreprints(papers) {
     const journal = paper.journal || '';
     
     let html = `<div class="compact-paper-id">${paperId}</div>`;
-    html += roleBadge(paper.role);
+    html += roleBadge(paper);
     // Format APA with italic and bold journal name (same as compact view)
     let formattedApa = apa;
     if (journal) {

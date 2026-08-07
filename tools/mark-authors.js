@@ -45,6 +45,16 @@ if (!LIST || !fs.existsSync(LIST)) {
 const CORRESPONDING = '*';
 const CO_FIRST = '#';
 
+// The group leader, whose position on each paper is what the site badges.
+// Spelling varies across publishers ("Jiaji Wang", "Jia-Ji Wang", "Jia J.
+// Wang", and one with a Unicode hyphen), so names are compared with all
+// separators stripped.  Other Wangs appear as co-authors and must not match.
+const PI_KEYS = new Set(['jiajiwang', 'wangjiaji', 'jiajwang']);
+
+const isPI = name => PI_KEYS.has(
+  name.normalize('NFKC').toLowerCase().replace(/[‐-―\-.\s]/g, '')
+);
+
 /** Matches one "Family, I. I." author inside an APA author segment. */
 const APA_AUTHOR = /[^,]+,\s*(?:[A-Z]\.\s*)+/g;
 
@@ -259,8 +269,43 @@ function main() {
     if (markers.size) paper.APA = markCitation(paper.APA, markers);
   });
 
+  // Derive the PI's own position on each paper so the site can say exactly
+  // "First Author" or "Corresponding Author" rather than lumping the two
+  // together.  Both can be true at once.
+  const positionCounts = {};
+  const unpositioned = [];
+  data.forEach(paper => {
+    const authors = paper.authors || [];
+    const first = authors.length > 0 && isPI(authors[0]);
+    const coFirst = (paper['co-first-authors'] || []).some(isPI);
+    const corresponding = (paper['corresponding-authors'] || []).some(isPI);
+
+    const parts = [];
+    if (first) parts.push('first');
+    else if (coFirst) parts.push('co-first');
+    if (corresponding) parts.push('corresponding');
+
+    const position = parts.join('-');
+    if (position) paper['author-position'] = position;
+    else delete paper['author-position'];
+
+    positionCounts[position || '(none)'] = (positionCounts[position || '(none)'] || 0) + 1;
+    if (!position && paper.role === 'lead') unpositioned.push(paper);
+  });
+
   console.log(`${corrCount} corresponding-author marking(s), ` +
               `${coFirstCount} co-first-author marking(s) across ${data.length} papers.`);
+  console.log('\nAuthor position:');
+  Object.entries(positionCounts).sort().forEach(([k, v]) => console.log(`  ${k}: ${v}`));
+  if (unpositioned.length) {
+    console.log(`\n${unpositioned.length} paper(s) marked "lead" in the CV but neither first`);
+    console.log('nor starred as corresponding — the CV may be missing an asterisk:');
+    unpositioned.forEach(p => {
+      const at = (p.authors || []).findIndex(isPI);
+      console.log(`  ${p.id}  position ${at + 1} of ${(p.authors || []).length}` +
+                  `  ${p.title.slice(0, 58)}`);
+    });
+  }
   if (unresolved.length) {
     console.log(`\n${unresolved.length} unresolved:`);
     unresolved.forEach(u => console.log(`  ${u}`));
